@@ -7,8 +7,7 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   const username = loginUser.value;
   const password = loginPass.value;
 
-  const res = await fetch("http://localhost:3000/api/login", {
-
+  const res = await fetch("https://gymtracker-backend-2.onrender.com/api/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
@@ -33,8 +32,7 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
   const username = regUser.value;
   const password = regPass.value;
 
-  const res = await fetch("http://localhost:3000/api/register", {
-
+  const res = await fetch("https://gymtracker-backend-2.onrender.com/api/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
@@ -59,8 +57,7 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
   const weight = document.getElementById("weight").value;
   const reps = document.getElementById("reps").value;
 
-  await fetch("http://localhost:3000/api/log", {
-
+  await fetch("https://gymtracker-backend-2.onrender.com/api/log", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -76,8 +73,7 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
 // LOAD EXERCISES
 // -------------------------
 async function loadExercises() {
-  const res = await fetch("http://localhost:3000/api/exercises", {
-
+  const res = await fetch("https://gymtracker-backend-2.onrender.com/api/exercises", {
     headers: { "Authorization": localStorage.getItem("token") }
   });
 
@@ -96,6 +92,7 @@ async function loadExercises() {
     list.appendChild(div);
   });
 }
+
 // Load exercises immediately when dashboard opens
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("dashboard.html")) {
