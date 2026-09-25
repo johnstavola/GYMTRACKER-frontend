@@ -77,74 +77,33 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
 
   document.getElementById("newExercise").value = "";
 
-  loadExercises();
+  loadWorkoutDates(); // refresh dates instead of exercises
 });
 
 // -------------------------
-// LOAD EXERCISES
+// LOAD WORKOUT DATES
 // -------------------------
-async function loadExercises() {
-  const res = await fetch("https://gymtracker-backend-2.onrender.com/api/exercises", {
+async function loadWorkoutDates() {
+  const res = await fetch("https://gymtracker-backend-2.onrender.com/api/dates", {
     headers: { "Authorization": localStorage.getItem("token") }
   });
 
-  const exercises = await res.json();
+  const dates = await res.json();
 
-  // Populate dropdown
-  const dropdown = document.getElementById("exerciseSelect");
-  dropdown.innerHTML = `<option value="">-- Select Exercise --</option>`;
-
-  exercises.forEach(ex => {
-    const option = document.createElement("option");
-    option.value = ex.name;
-    option.textContent = ex.name;
-    dropdown.appendChild(option);
-  });
-
-  // Populate exercise list
   const list = document.getElementById("exerciseList");
-  list.innerHTML = "";
+  list.innerHTML = "<h2>Workout Dates</h2>";
 
-  exercises.forEach(ex => {
+  dates.forEach(day => {
     const div = document.createElement("div");
     div.className = "card";
 
     div.innerHTML = `
-      <h3>${ex.name}</h3>
-
-      <p onclick="viewDay('${ex.last_timestamp}')"
-         style="cursor:pointer; text-decoration:underline;">
-         Last logged: ${ex.last_weight} lbs × ${ex.last_reps} reps
-      </p>
-
-      <button onclick="viewHistory('${ex.name}')">View History</button>
+      <h3 style="cursor:pointer; text-decoration:underline;"
+          onclick="viewDay('${day.date}')">
+          Workout: ${day.date}
+      </h3>
     `;
 
-    list.appendChild(div);
-  });
-}
-
-// -------------------------
-// VIEW FULL HISTORY FOR A LIFT
-// -------------------------
-async function viewHistory(name) {
-  const res = await fetch(`https://gymtracker-backend-2.onrender.com/api/history/${name}`, {
-    headers: { "Authorization": localStorage.getItem("token") }
-  });
-
-  const history = await res.json();
-
-  const list = document.getElementById("exerciseList");
-  list.innerHTML = `<h2>${name} History</h2>`;
-
-  history.forEach(log => {
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `
-      <p><strong>Date:</strong> ${log.timestamp}</p>
-      <p><strong>Weight:</strong> ${log.weight} lbs</p>
-      <p><strong>Reps:</strong> ${log.reps}</p>
-    `;
     list.appendChild(div);
   });
 }
@@ -152,9 +111,7 @@ async function viewHistory(name) {
 // -------------------------
 // VIEW ALL LOGS FOR A SPECIFIC DAY
 // -------------------------
-async function viewDay(timestamp) {
-  const date = timestamp.split(" ")[0]; // YYYY-MM-DD
-
+async function viewDay(date) {
   const res = await fetch(`https://gymtracker-backend-2.onrender.com/api/day/${date}`, {
     headers: { "Authorization": localStorage.getItem("token") }
   });
@@ -177,10 +134,19 @@ async function viewDay(timestamp) {
 }
 
 // -------------------------
+// OPTIONAL: Manual date selector
+// -------------------------
+async function viewSelectedDate() {
+  const date = document.getElementById("viewDate").value;
+  if (!date) return;
+  viewDay(date);
+}
+
+// -------------------------
 // INITIAL LOAD
 // -------------------------
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("dashboard.html")) {
-    loadExercises();
+    loadWorkoutDates(); // load dates instead of exercises
   }
 });
