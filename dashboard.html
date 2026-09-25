@@ -12,15 +12,15 @@
 
     <form id="exerciseForm" class="card">
 
-      <!-- NEW: Dropdown for existing exercises -->
+      <!-- Dropdown for existing exercises -->
       <select id="exerciseSelect">
         <option value="">-- Select Exercise --</option>
       </select>
 
-      <!-- NEW: Text box for adding a new exercise -->
+      <!-- Text box for adding a new exercise -->
       <input type="text" id="newExercise" placeholder="Or type a new exercise">
 
-      <!-- Weight + Reps stay the same -->
+      <!-- Weight + Reps -->
       <input type="number" id="weight" placeholder="Weight" required>
       <input type="number" id="reps" placeholder="Reps" required>
 
@@ -28,6 +28,10 @@
     </form>
 
     <h2>Exercises</h2>
+
+    <!-- NEW: Date selector for viewing daily workouts -->
+    <input type="date" id="viewDate" onchange="viewSelectedDate()">
+
     <div id="exerciseList"></div>
   </div>
 
