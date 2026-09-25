@@ -48,3 +48,52 @@ button:hover {
 #exerciseList {
   margin-top: 20px;
 }
+
+/* ----------------------------- */
+/* HAMBURGER MENU + SLIDE PANEL  */
+/* ----------------------------- */
+
+/* Hamburger icon */
+.hamburger {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  font-size: 32px;
+  cursor: pointer;
+  z-index: 1000;
+  color: #333; /* visible on your light background */
+}
+
+/* Slide-out menu (hidden by default) */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -250px; /* hidden off-screen */
+  width: 250px;
+  height: 100%;
+  background: #333;
+  color: white;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.4);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.side-menu h3 {
+  margin-top: 0;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  padding: 12px 0;
+  cursor: pointer;
+  border-bottom: 1px solid #555;
+}
+
+.side-menu li:hover {
+  color: #ddd;
+}
