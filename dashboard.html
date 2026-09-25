@@ -11,9 +11,19 @@
     <h1>Your Workout Log</h1>
 
     <form id="exerciseForm" class="card">
-      <input type="text" id="name" placeholder="Exercise Name" required>
+
+      <!-- NEW: Dropdown for existing exercises -->
+      <select id="exerciseSelect">
+        <option value="">-- Select Exercise --</option>
+      </select>
+
+      <!-- NEW: Text box for adding a new exercise -->
+      <input type="text" id="newExercise" placeholder="Or type a new exercise">
+
+      <!-- Weight + Reps stay the same -->
       <input type="number" id="weight" placeholder="Weight" required>
       <input type="number" id="reps" placeholder="Reps" required>
+
       <button type="submit">Add Set</button>
     </form>
 
