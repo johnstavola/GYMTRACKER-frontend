@@ -88,6 +88,32 @@ async function loadExercises() {
     div.innerHTML = `
       <h3>${ex.name}</h3>
       <p>Last logged: ${ex.last_weight} lbs × ${ex.last_reps} reps</p>
+      <button onclick="viewHistory('${ex.name}')">View History</button>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// -------------------------
+// VIEW FULL HISTORY FOR A LIFT
+// -------------------------
+async function viewHistory(name) {
+  const res = await fetch(`https://gymtracker-backend-2.onrender.com/api/history/${name}`, {
+    headers: { "Authorization": localStorage.getItem("token") }
+  });
+
+  const history = await res.json();
+
+  const list = document.getElementById("exerciseList");
+  list.innerHTML = `<h2>${name} History</h2>`;
+
+  history.forEach(log => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <p><strong>Date:</strong> ${log.timestamp}</p>
+      <p><strong>Weight:</strong> ${log.weight} lbs</p>
+      <p><strong>Reps:</strong> ${log.reps}</p>
     `;
     list.appendChild(div);
   });
