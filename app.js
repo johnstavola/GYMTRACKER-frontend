@@ -53,7 +53,17 @@ document.getElementById("registerForm")?.addEventListener("submit", async (e) =>
 document.getElementById("exerciseForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const name = document.getElementById("name").value;
+  const selected = document.getElementById("exerciseSelect").value;
+  const typed = document.getElementById("newExercise").value.trim();
+
+  // Use typed exercise if provided, otherwise dropdown
+  const name = typed !== "" ? typed : selected;
+
+  if (!name) {
+    alert("Choose an exercise or type a new one.");
+    return;
+  }
+
   const weight = document.getElementById("weight").value;
   const reps = document.getElementById("reps").value;
 
@@ -65,6 +75,9 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
     },
     body: JSON.stringify({ name, weight, reps })
   });
+
+  // Clear new exercise field so it doesn't auto‑reuse
+  document.getElementById("newExercise").value = "";
 
   loadExercises();
 });
@@ -79,6 +92,18 @@ async function loadExercises() {
 
   const exercises = await res.json();
 
+  // Populate dropdown
+  const dropdown = document.getElementById("exerciseSelect");
+  dropdown.innerHTML = `<option value="">-- Select Exercise --</option>`;
+
+  exercises.forEach(ex => {
+    const option = document.createElement("option");
+    option.value = ex.name;
+    option.textContent = ex.name;
+    dropdown.appendChild(option);
+  });
+
+  // Populate exercise list
   const list = document.getElementById("exerciseList");
   list.innerHTML = "";
 
