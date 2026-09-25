@@ -56,7 +56,6 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
   const selected = document.getElementById("exerciseSelect").value;
   const typed = document.getElementById("newExercise").value.trim();
 
-  // Use typed exercise if provided, otherwise dropdown
   const name = typed !== "" ? typed : selected;
 
   if (!name) {
@@ -76,7 +75,6 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
     body: JSON.stringify({ name, weight, reps })
   });
 
-  // Clear new exercise field so it doesn't auto‑reuse
   document.getElementById("newExercise").value = "";
 
   loadExercises();
@@ -110,11 +108,18 @@ async function loadExercises() {
   exercises.forEach(ex => {
     const div = document.createElement("div");
     div.className = "card";
+
     div.innerHTML = `
       <h3>${ex.name}</h3>
-      <p>Last logged: ${ex.last_weight} lbs × ${ex.last_reps} reps</p>
+
+      <p onclick="viewDay('${ex.last_timestamp}')"
+         style="cursor:pointer; text-decoration:underline;">
+         Last logged: ${ex.last_weight} lbs × ${ex.last_reps} reps
+      </p>
+
       <button onclick="viewHistory('${ex.name}')">View History</button>
     `;
+
     list.appendChild(div);
   });
 }
@@ -144,7 +149,36 @@ async function viewHistory(name) {
   });
 }
 
-// Load exercises immediately when dashboard opens
+// -------------------------
+// VIEW ALL LOGS FOR A SPECIFIC DAY
+// -------------------------
+async function viewDay(timestamp) {
+  const date = timestamp.split(" ")[0]; // YYYY-MM-DD
+
+  const res = await fetch(`https://gymtracker-backend-2.onrender.com/api/day/${date}`, {
+    headers: { "Authorization": localStorage.getItem("token") }
+  });
+
+  const logs = await res.json();
+
+  const list = document.getElementById("exerciseList");
+  list.innerHTML = `<h2>Workout for ${date}</h2>`;
+
+  logs.forEach(log => {
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `
+      <h3>${log.name}</h3>
+      <p>${log.weight} lbs × ${log.reps} reps</p>
+      <p>${log.timestamp}</p>
+    `;
+    list.appendChild(div);
+  });
+}
+
+// -------------------------
+// INITIAL LOAD
+// -------------------------
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("dashboard.html")) {
     loadExercises();
