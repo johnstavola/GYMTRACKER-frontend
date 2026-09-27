@@ -1,10 +1,7 @@
 // -------------------------
-// SUPABASE CLIENT
+// BACKEND URL
 // -------------------------
-const supabase = supabase.createClient(
-  "https://nregienioaozuetrnsof.supabase.co",
-  "YOUR_ANON_KEY_HERE"
-);
+const API = "https://gymtracker-backend-2.onrender.com/api";
 
 // -------------------------
 // HAMBURGER MENU TOGGLE
@@ -19,66 +16,62 @@ if (ham && menu) {
   });
 }
 
-// Placeholder functions
-function openPersonalBests() {
-  alert("Personal Bests page coming soon!");
-}
-
-function openSettings() {
-  alert("Settings page coming soon!");
-}
-
-async function logout() {
-  await supabase.auth.signOut();
+// -------------------------
+// LOGOUT
+// -------------------------
+function logout() {
   localStorage.removeItem("token");
   window.location = "index.html";
 }
 
 // -------------------------
-// LOGIN (SUPABASE AUTH)
+// LOGIN (BACKEND → SUPABASE)
 // -------------------------
 document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = loginUser.value;
+  const username = loginUser.value;
   const password = loginPass.value;
 
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password
+  const res = await fetch(`${API}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
   });
 
-  if (error) {
+  const data = await res.json();
+
+  if (data.token) {
+    localStorage.setItem("token", data.token);
+    window.location = "dashboard.html";
+  } else {
     alert("Invalid login");
-    return;
   }
-
-  const token = data.session.access_token;
-  localStorage.setItem("token", token);
-
-  window.location = "dashboard.html";
 });
 
 // -------------------------
-// REGISTER (SUPABASE AUTH)
+// REGISTER (BACKEND → SUPABASE)
 // -------------------------
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = regUser.value;
+  const username = regUser.value;
   const password = regPass.value;
 
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password
+  const res = await fetch(`${API}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
   });
 
-  if (error) {
-    alert("Registration failed.");
-    return;
-  }
+  const data = await res.json();
 
-  alert("Account created! You can log in now.");
+  if (data.success) {
+    alert("Account created! You can log in now.");
+    showLogin();
+  } else {
+    alert("Registration failed.");
+  }
 });
 
 // -------------------------
@@ -101,7 +94,7 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
 
   const token = localStorage.getItem("token");
 
-  await fetch("https://gymtracker-backend-2.onrender.com/api/log", {
+  await fetch(`${API}/log`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -120,7 +113,7 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
 async function loadWorkoutDates() {
   const token = localStorage.getItem("token");
 
-  const res = await fetch("https://gymtracker-backend-2.onrender.com/api/dates", {
+  const res = await fetch(`${API}/dates`, {
     headers: { "Authorization": `Bearer ${token}` }
   });
 
@@ -150,7 +143,7 @@ async function loadWorkoutDates() {
 async function viewDay(date) {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`https://gymtracker-backend-2.onrender.com/api/day/${date}`, {
+  const res = await fetch(`${API}/day/${date}`, {
     headers: { "Authorization": `Bearer ${token}` }
   });
 
@@ -163,7 +156,7 @@ async function viewDay(date) {
     const div = document.createElement("div");
     div.className = "card";
     div.innerHTML = `
-      <h3>${log.name}</h3>
+      <h3>${log.exercise}</h3>
       <p>${log.weight} lbs × ${log.reps} reps</p>
       <p>${log.timestamp}</p>
     `;
