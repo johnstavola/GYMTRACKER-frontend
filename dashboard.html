@@ -7,47 +7,17 @@
 </head>
 <body>
 
-  <!-- Hamburger Menu Icon -->
-  <div id="hamburger" class="hamburger">
-    ☰
-  </div>
-
-  <!-- Slide-Out Menu -->
-  <div id="sideMenu" class="side-menu">
-    <h3>Menu</h3>
-    <ul>
-      <li onclick="openPersonalBests()">Personal Bests</li>
-      <li onclick="openSettings()">Settings</li>
-      <li onclick="logout()">Logout</li>
-    </ul>
-  </div>
-
   <div class="container">
     <h1>Your Workout Log</h1>
 
     <form id="exerciseForm" class="card">
-
-      <!-- Dropdown for existing exercises -->
-      <select id="exerciseSelect">
-        <option value="">-- Select Exercise --</option>
-      </select>
-
-      <!-- Text box for adding a new exercise -->
-      <input type="text" id="newExercise" placeholder="Or type a new exercise">
-
-      <!-- Weight + Reps -->
+      <input type="text" id="name" placeholder="Exercise Name" required>
       <input type="number" id="weight" placeholder="Weight" required>
       <input type="number" id="reps" placeholder="Reps" required>
-
       <button type="submit">Add Set</button>
     </form>
 
-    <h2>Workouts</h2>
-
-    <!-- Date selector for viewing daily workouts -->
-    <input type="date" id="viewDate" onchange="viewSelectedDate()">
-
-    <!-- This will show clickable workout dates -->
+    <h2>Exercises</h2>
     <div id="exerciseList"></div>
   </div>
 
