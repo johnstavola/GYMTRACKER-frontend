@@ -8,27 +8,56 @@
 <body>
 
   <div class="container">
-    <h1>GYMTRACKER</h1>
 
-    <div class="card">
-      <h2>Login</h2>
+    <h1 style="font-size: 42px; margin-bottom: 10px; letter-spacing: 2px;">
+      LIFTR
+    </h1>
+
+    <!-- LOGIN CARD -->
+    <div class="card" id="loginCard">
+      <h2 style="margin-bottom: 10px;">Login</h2>
       <form id="loginForm">
         <input type="text" id="loginUser" placeholder="Username" required>
         <input type="password" id="loginPass" placeholder="Password" required>
         <button type="submit">Login</button>
       </form>
+
+      <p style="text-align:center; margin-top:10px; font-size:14px;">
+        Don’t have an account?
+        <span style="color:#4da6ff; cursor:pointer;" onclick="showRegister()">Click here to register</span>
+      </p>
     </div>
 
-    <div class="card">
-      <h2>Register</h2>
+    <!-- REGISTER CARD (hidden by default) -->
+    <div class="card" id="registerCard" style="display:none;">
+      <h2 style="margin-bottom: 10px;">Register</h2>
       <form id="registerForm">
         <input type="text" id="regUser" placeholder="Username" required>
         <input type="password" id="regPass" placeholder="Password" required>
         <button type="submit">Create Account</button>
       </form>
+
+      <p style="text-align:center; margin-top:10px; font-size:14px;">
+        Already have an account?
+        <span style="color:#4da6ff; cursor:pointer;" onclick="showLogin()">Click here to login</span>
+      </p>
     </div>
+
   </div>
 
   <script src="app.js"></script>
+
+  <script>
+    function showRegister() {
+      document.getElementById("loginCard").style.display = "none";
+      document.getElementById("registerCard").style.display = "block";
+    }
+
+    function showLogin() {
+      document.getElementById("registerCard").style.display = "none";
+      document.getElementById("loginCard").style.display = "block";
+    }
+  </script>
+
 </body>
 </html>
