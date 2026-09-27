@@ -137,9 +137,6 @@ async function loadWorkoutDates() {
   });
 }
 
-// -------------------------
-// VIEW ALL LOGS FOR A SPECIFIC DAY
-// -------------------------
 async function viewDay(date) {
   const token = localStorage.getItem("token");
 
@@ -156,13 +153,14 @@ async function viewDay(date) {
     const div = document.createElement("div");
     div.className = "card";
     div.innerHTML = `
-      <h3>${log.exercise}</h3>
+      <h3>${log.name}</h3>
       <p>${log.weight} lbs × ${log.reps} reps</p>
-      <p>${log.timestamp}</p>
+      <p>${log.created_at}</p>
     `;
     list.appendChild(div);
   });
 }
+
 
 // -------------------------
 // OPTIONAL: Manual date selector
