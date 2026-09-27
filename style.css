@@ -1,50 +1,210 @@
+/* --------------------------------------------- */
+/* FONT IMPORT — Techy Rajdhani                  */
+/* --------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600&display=swap');
+
+
+/* --------------------------------------------- */
+/* GLOBAL STYLING                                */
+/* --------------------------------------------- */
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  font-family: 'Rajdhani', sans-serif;
+  background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
   margin: 0;
   padding: 0;
-}
-
-.container {
-  width: 90%;
-  max-width: 500px;
-  margin: 40px auto;
+  color: #e6e6e6;
 }
 
 h1, h2 {
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
+
+/* --------------------------------------------- */
+/* MAIN CONTAINER                                */
+/* --------------------------------------------- */
+.container {
+  width: 90%;
+  max-width: 500px;
+  margin: 60px auto;
+  position: relative;
+  z-index: 1;
+}
+
+
+/* --------------------------------------------- */
+/* FROSTED GLASS CARD                            */
+/* --------------------------------------------- */
 .card {
-  background: white;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   padding: 20px;
   margin: 20px 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+
+/* --------------------------------------------- */
+/* INPUTS & SELECTS                              */
+/* --------------------------------------------- */
+input,
+select {
+  width: 92%;
+  padding: 12px;
+  margin: 8px auto;
+  display: block;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: #e6e6e6;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+input::placeholder {
+  color: #bfbfbf;
 }
 
+/* Force dropdown to match input width exactly */
+select {
+  width: 92% !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+
+/* --------------------------------------------- */
+/* BUTTONS                                       */
+/* --------------------------------------------- */
 button {
-  width: 100%;
+  width: 92%;
   padding: 12px;
-  background: #333;
-  color: white;
+  background: #4da6ff;
+  color: #0f0f0f;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+  display: block;
+  margin: 8px auto;
+  box-sizing: border-box;
 }
 
 button:hover {
-  background: #555;
+  background: #6bb8ff;
 }
 
+
+/* --------------------------------------------- */
+/* EXERCISE LIST                                 */
+/* --------------------------------------------- */
 #exerciseList {
   margin-top: 20px;
+}
+
+
+/* --------------------------------------------- */
+/* HAMBURGER MENU                                */
+/* --------------------------------------------- */
+.hamburger {
+  position: fixed;
+  top: 15px;
+ right: 15px;
+  font-size: 34px;
+  cursor: pointer;
+  z-index: 9999;
+  color: #4da6ff;
+  text-shadow: 0 0 6px rgba(77,166,255,0.6);
+  transition: 0.2s;
+}
+
+.hamburger.active {
+  color: #ffffff;
+}
+
+
+/* --------------------------------------------- */
+/* SLIDE-OUT MENU                                */
+/* --------------------------------------------- */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 250px;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-left: 1px solid rgba(255,255,255,0.15);
+  color: white;
+  padding: 20px;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.4);
+  transition: right 0.3s ease;
+  z-index: 999;
+}
+
+.side-menu.open {
+  right: 0;
+}
+
+.side-menu h3 {
+  margin-top: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.side-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-menu li {
+  padding: 12px 0;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  transition: 0.2s;
+}
+
+.side-menu li:hover {
+  color: #4da6ff;
+}
+
+/* --------------------------------------------- */
+/* DATE PICKER                                   */
+/* --------------------------------------------- */
+input[type="date"] {
+  width: 92%;
+  padding: 12px;
+  margin: 8px auto;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  color: #e6e6e6;
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+  font-family: 'Rajdhani', sans-serif;
+  text-align: center;
+  transition: 0.2s;
+}
+
+/* Calendar icon color + hover glow */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(80%) sepia(20%) saturate(300%) hue-rotate(180deg);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+input[type="date"]:hover {
+  border-color: #4da6ff;
+  box-shadow: 0 0 6px rgba(77,166,255,0.4);
 }
