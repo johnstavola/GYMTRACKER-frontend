@@ -105,7 +105,31 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
 
   document.getElementById("newExercise").value = "";
   loadWorkoutDates();
+  loadExercises(); // refresh dropdown after adding new exercise
 });
+
+// -------------------------
+// LOAD EXERCISES (NEW)
+// -------------------------
+async function loadExercises() {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${API}/exercises`, {
+    headers: { "Authorization": `Bearer ${token}` }
+  });
+
+  const exercises = await res.json();
+
+  const select = document.getElementById("exerciseSelect");
+  select.innerHTML = `<option value="">-- Select Exercise --</option>`;
+
+  exercises.forEach(name => {
+    const opt = document.createElement("option");
+    opt.value = name;
+    opt.textContent = name;
+    select.appendChild(opt);
+  });
+}
 
 // -------------------------
 // LOAD WORKOUT DATES
@@ -192,31 +216,32 @@ async function viewSelectedDate() {
 // -------------------------
 document.addEventListener("DOMContentLoaded", () => {
   if (window.location.pathname.includes("dashboard.html")) {
+    loadExercises();     // NEW
     loadWorkoutDates();
   }
 });
 
+// -------------------------
+// DELETE WORKOUT LOG
+// -------------------------
 document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("deleteLog")) {
     const id = e.target.dataset.id;
-
     const token = localStorage.getItem("token");
 
     const res = await fetch(`${API}/log/${id}`, {
-  method: "DELETE",
-  headers: {
-    "Authorization": `Bearer ${token}`
-  }
-});
-
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
 
     const data = await res.json();
 
     if (data.success) {
-      e.target.parentElement.remove(); // remove from UI
+      e.target.parentElement.remove();
     } else {
       alert("Error deleting log");
     }
   }
 });
-
