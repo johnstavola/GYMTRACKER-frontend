@@ -78,6 +78,35 @@ select {
   -moz-appearance: none;
 }
 
+/* --------------------------------------------- */
+/* DARK BLUE THEME DROPDOWN (UPDATED)            */
+/* --------------------------------------------- */
+select {
+  border: 1px solid rgba(77,166,255,0.4); /* neon blue border */
+  background: rgba(255,255,255,0.05);     /* frosted glass */
+  color: #e6e6e6;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+
+  /* Custom neon blue arrow */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%234da6ff' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 18px;
+}
+
+/* Dropdown options */
+select option {
+  background-color: #0f0f0f;
+  color: #e6e6e6;
+}
+
+/* Focus glow */
+select:focus {
+  outline: none;
+  border-color: #4da6ff;
+  box-shadow: 0 0 8px rgba(77,166,255,0.6);
+}
 
 
 /* --------------------------------------------- */
@@ -118,7 +147,7 @@ button:hover {
 .hamburger {
   position: fixed;
   top: 15px;
- right: 15px;
+  right: 15px;
   font-size: 34px;
   cursor: pointer;
   z-index: 9999;
@@ -177,6 +206,7 @@ button:hover {
 .side-menu li:hover {
   color: #4da6ff;
 }
+
 
 /* --------------------------------------------- */
 /* DATE PICKER                                   */
