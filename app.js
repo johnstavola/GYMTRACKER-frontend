@@ -137,6 +137,9 @@ async function loadWorkoutDates() {
   });
 }
 
+// -------------------------
+// VIEW ALL LOGS FOR A SPECIFIC DAY
+// -------------------------
 async function viewDay(date) {
   const token = localStorage.getItem("token");
 
@@ -160,7 +163,6 @@ async function viewDay(date) {
     list.appendChild(div);
   });
 }
-
 
 // -------------------------
 // OPTIONAL: Manual date selector
