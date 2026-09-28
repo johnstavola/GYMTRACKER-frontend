@@ -202,12 +202,13 @@ document.addEventListener("click", async (e) => {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`/api/log/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    });
+    const res = await fetch(`${API}/log/${id}`, {
+  method: "DELETE",
+  headers: {
+    "Authorization": `Bearer ${token}`
+  }
+});
+
 
     const data = await res.json();
 
