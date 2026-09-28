@@ -155,11 +155,25 @@ async function viewDay(date) {
   logs.forEach(log => {
     const div = document.createElement("div");
     div.className = "card";
+
     div.innerHTML = `
       <h3>${log.name}</h3>
       <p>${log.weight} lbs × ${log.reps} reps</p>
       <p>${log.created_at}</p>
+
+      <button class="deleteLog" data-id="${log.id}" style="
+        margin-top: 10px;
+        background: #c62828;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+      ">
+        Delete
+      </button>
     `;
+
     list.appendChild(div);
   });
 }
