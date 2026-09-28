@@ -181,3 +181,27 @@ document.addEventListener("DOMContentLoaded", () => {
     loadWorkoutDates();
   }
 });
+
+document.addEventListener("click", async (e) => {
+  if (e.target.classList.contains("deleteLog")) {
+    const id = e.target.dataset.id;
+
+    const token = localStorage.getItem("token");
+
+    const res = await fetch(`/api/log/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      e.target.parentElement.remove(); // remove from UI
+    } else {
+      alert("Error deleting log");
+    }
+  }
+});
+
