@@ -1,19 +1,16 @@
 async function saveSettings() {
-  const token = localStorage.getItem("token");
-
   const buttonColor = document.getElementById("buttonColor").value;
   const backgroundColor = document.getElementById("backgroundColor").value;
 
-  await fetch("/profile/settings", {
+  const token = localStorage.getItem("token");
+
+  await fetch("https://your-backend-url/profile/settings", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`
+      "Authorization": `Bearer ${token}`
     },
-    body: JSON.stringify({
-      button_color: buttonColor,
-      background_color: backgroundColor
-    })
+    body: JSON.stringify({ buttonColor, backgroundColor })
   });
 
   alert("Settings saved!");
