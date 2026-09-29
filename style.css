@@ -70,38 +70,26 @@ input::placeholder {
   color: #bfbfbf;
 }
 
-/* Force dropdown to match input width exactly */
 select {
   width: 92% !important;
   appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-/* --------------------------------------------- */
-/* DARK BLUE THEME DROPDOWN (UPDATED)            */
-/* --------------------------------------------- */
-select {
-  border: 1px solid rgba(77,166,255,0.4); /* neon blue border */
-  background: rgba(255,255,255,0.05);     /* frosted glass */
+  border: 1px solid rgba(77,166,255,0.4);
+  background: rgba(255,255,255,0.05);
   color: #e6e6e6;
   letter-spacing: 0.5px;
   cursor: pointer;
 
-  /* Custom neon blue arrow */
   background-image: url("data:image/svg+xml;utf8,<svg fill='%234da6ff' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
   background-position: right 12px center;
   background-size: 18px;
 }
 
-/* Dropdown options */
 select option {
   background-color: #0f0f0f;
   color: #e6e6e6;
 }
 
-/* Focus glow */
 select:focus {
   outline: none;
   border-color: #4da6ff;
@@ -227,7 +215,6 @@ input[type="date"] {
   transition: 0.2s;
 }
 
-/* Calendar icon color + hover glow */
 input[type="date"]::-webkit-calendar-picker-indicator {
   filter: invert(80%) sepia(20%) saturate(300%) hue-rotate(180deg);
   cursor: pointer;
@@ -239,11 +226,32 @@ input[type="date"]:hover {
   box-shadow: 0 0 6px rgba(77,166,255,0.4);
 }
 
-.settings-body {
+
+/* --------------------------------------------- */
+/* SETTINGS PAGE — TRUE CENTER FIX               */
+/* --------------------------------------------- */
+.settings-page {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+
+  position: relative;
 }
 
+/* Prevent .container margin from breaking centering */
+.settings-page .container {
+  margin: 0 !important;
+}
+
+/* Extra wrapper to ensure perfect centering */
+.settings-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
