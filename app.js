@@ -249,4 +249,26 @@ document.addEventListener("click", async (e) => {
       alert("Error deleting log");
     }
   }
+
+  async function loadSettings() {
+  const token = localStorage.getItem("token");
+  if (!token) return;
+
+  const res = await fetch("/profile/settings", {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  const settings = await res.json();
+
+  // Apply button color
+  if (settings.button_color) {
+    document.documentElement.style.setProperty("--button-color", settings.button_color);
+  }
+
+  // Apply background color
+  if (settings.background_color) {
+    document.body.style.background = settings.background_color;
+  }
+}
+
 });
