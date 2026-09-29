@@ -16,6 +16,11 @@ if (ham && menu) {
   });
 }
 
+function openSettings() {
+  window.location = "settings.html";
+}
+
+
 // -------------------------
 // LOGOUT
 // -------------------------
