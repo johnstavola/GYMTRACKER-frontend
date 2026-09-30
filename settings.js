@@ -1,3 +1,5 @@
+const API = "https://gymtracker-backend-2.onrender.com/api";
+
 async function saveSettings() {
   const buttonColor = document.getElementById("buttonColor").value;
   const backgroundColor = document.getElementById("backgroundColor").value;
