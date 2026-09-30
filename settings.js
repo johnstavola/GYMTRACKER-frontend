@@ -17,3 +17,4 @@ async function saveSettings() {
 
   alert("Settings saved!");
 }
+console.log("Token:", token);
