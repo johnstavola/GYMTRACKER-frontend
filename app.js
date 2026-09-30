@@ -20,7 +20,6 @@ function openSettings() {
   window.location = "settings.html";
 }
 
-
 // -------------------------
 // LOGOUT
 // -------------------------
@@ -30,7 +29,7 @@ function logout() {
 }
 
 // -------------------------
-// LOGIN (BACKEND → SUPABASE)
+// LOGIN
 // -------------------------
 document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -55,7 +54,7 @@ document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
 });
 
 // -------------------------
-// REGISTER (BACKEND → SUPABASE)
+// REGISTER
 // -------------------------
 document.getElementById("registerForm")?.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -110,11 +109,11 @@ document.getElementById("exerciseForm")?.addEventListener("submit", async (e) =>
 
   document.getElementById("newExercise").value = "";
   loadWorkoutDates();
-  loadExercises(); // refresh dropdown after adding new exercise
+  loadExercises();
 });
 
 // -------------------------
-// LOAD EXERCISES (NEW)
+// LOAD EXERCISES
 // -------------------------
 async function loadExercises() {
   const token = localStorage.getItem("token");
@@ -208,25 +207,6 @@ async function viewDay(date) {
 }
 
 // -------------------------
-// OPTIONAL: Manual date selector
-// -------------------------
-async function viewSelectedDate() {
-  const date = document.getElementById("viewDate").value;
-  if (!date) return;
-  viewDay(date);
-}
-
-// -------------------------
-// INITIAL LOAD
-// -------------------------
-document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.pathname.includes("dashboard.html")) {
-    loadExercises();     // NEW
-    loadWorkoutDates();
-  }
-});
-
-// -------------------------
 // DELETE WORKOUT LOG
 // -------------------------
 document.addEventListener("click", async (e) => {
@@ -249,12 +229,16 @@ document.addEventListener("click", async (e) => {
       alert("Error deleting log");
     }
   }
+});
 
-  async function loadSettings() {
+// -------------------------
+// LOAD USER SETTINGS (THEME)
+// -------------------------
+async function loadSettings() {
   const token = localStorage.getItem("token");
   if (!token) return;
 
-  const res = await fetch("/profile/settings", {
+  const res = await fetch(`${API}/profile/me`, {
     headers: { Authorization: `Bearer ${token}` }
   });
 
@@ -263,6 +247,11 @@ document.addEventListener("click", async (e) => {
   // Apply button color
   if (settings.button_color) {
     document.documentElement.style.setProperty("--button-color", settings.button_color);
+
+    // Apply to all buttons
+    document.querySelectorAll("button").forEach(btn => {
+      btn.style.backgroundColor = settings.button_color;
+    });
   }
 
   // Apply background color
@@ -271,4 +260,13 @@ document.addEventListener("click", async (e) => {
   }
 }
 
+// -------------------------
+// INITIAL LOAD
+// -------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  if (window.location.pathname.includes("dashboard.html")) {
+    loadExercises();
+    loadWorkoutDates();
+    loadSettings(); // THEME LOAD
+  }
 });
