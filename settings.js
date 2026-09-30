@@ -5,7 +5,7 @@ async function saveSettings() {
   const backgroundColor = document.getElementById("backgroundColor").value;
 
   const token = localStorage.getItem("token");
-
+console.log("Token:", token);
  await fetch("https://gymtracker-backend-2.onrender.com/profile/settings", {
     method: "POST",
     headers: {
@@ -17,4 +17,4 @@ async function saveSettings() {
 
   alert("Settings saved!");
 }
-console.log("Token:", token);
+
