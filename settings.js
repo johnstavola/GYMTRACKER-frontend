@@ -6,7 +6,7 @@ async function saveSettings() {
 
   const token = localStorage.getItem("token");
 
- await fetch(`${API}/profile/settings`, {
+ await fetch("https://gymtracker-backend-2.onrender.com/profile/settings", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
